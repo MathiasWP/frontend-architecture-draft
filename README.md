@@ -171,7 +171,7 @@ import cmsService from './cms-service';
 
 async function fetchTasks(projectId) {
     const emptyState = { /* ... */ }
-    // Reponse is equal to what we get from our existing sendQuery method.
+    // Response is equal to what we get from our existing sendQuery method.
     // The store is automatically updated on QueryResultChanged
     const queryStore = socketService.sendQuery('/tasks/get-task', {
         projectId
