@@ -1,0 +1,1 @@
+The uploaded documents widget
