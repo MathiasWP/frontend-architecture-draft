@@ -20,7 +20,7 @@ From outermost to innermost layer
 /src
   |-- /pages                 # Screen-level components.
   |-- /widgets               # Composite UI components aggregating features.
-  |-- /features              # Standalone features, specific functionalities.
+  |-- /features              # Standalone features, specific functionalities. These will be grouped by domains (task, criterion, member...)
   |-- /components            # Shared, reusable UI components (prev. UI-kit)
   |-- /services              # Business logic, API interactions, socket management.
   |-- /store                 # Global state management based on view-models
@@ -35,7 +35,7 @@ Contains the top-level components representing entire screens or views in the ap
 Larger, composite components that combine various features and shared components. Widgets represent significant sections of the UI and can span across multiple business domains.
 
 ### Features
-Self-contained, specific functionalities that are relatively independent. These can range from simple components like a User List to more complex ones like a File Uploader.
+Self-contained, specific functionalities that are relatively independent. These can range from simple components like a User List to more complex ones like a File Uploader. Features will be sub-divided into their relevant domains instead of being one huge linear list.
 
 ### Components
 Reusable UI elements that are used across features, widgets, and pages. This includes items like buttons, input fields, and modals.
