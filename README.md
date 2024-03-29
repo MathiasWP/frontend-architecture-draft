@@ -169,16 +169,19 @@ import { derived } from 'svelte/store';
 import socketService from './socket-service';
 import cmsService from './cms-service';
 
-async function fetchTasks(taskId) {
+async function fetchTasks(projectId) {
+    const emptyState = { /* ... */ }
+    // Reponse is equal to what we get from our existing sendQuery method.
+    // The store is automatically updated on QueryResultChanged
     const queryStore = socketService.sendQuery('/tasks/get-task', {
-        taskId
-    })
+        projectId
+    }, emptyState)
     return queryStore
 }
 
-async function createTaskViewModelStore(taskId) {
-    const taskStore = await fetchTasks(taskId);
-    const taskContent = await cmsService.getTaskContent(taskId);
+async function createTaskViewModelStore(projectId) {
+    const taskStore = await fetchTasks(projectId);
+    const taskContent = await cmsService.getTaskContent(projectId);
 
     return derived<TaskViewModel[]>(taskStore, $taskStore => {
         return {
@@ -194,6 +197,8 @@ export * as taskService
 
 ### Optimistic updates
 
+Note: This is more a proof of concept than a working example.
+
 ```ts
 // services/document-service.js
 import type TaskViewModel from '../models/view-models/task';
@@ -203,7 +208,8 @@ import { getDocumentStore } from '../stores/document-store';
 async function uploadDocument(projectId, documentName, documentId) {
     const store = getDocumentStore(projectId);
 
-    // Optimistic update
+    // This optimistic update does not cover the edge cases of receiving
+    // multiple QueryResultChanged events that overwrite optimistic state with old data.
     store.update(documents => {
         documents.push({documentName, documentId})
         return documents
@@ -234,4 +240,22 @@ const isSomeFeatureEnabled = featureFlagService.isEnabled('someFeature');
 {#if $isSomeFeatureEnabled}
     <SomeFeatureComponent />
 {/if}
+```
+
+### Tracking
+
+```svelte
+<script>
+import trackingService  from '../services/tracking-service';
+
+trackingService.setContext('some-context');
+
+const track = trackingService.createTracker();
+
+function handleButtonClick() {
+    track('button_click');
+}
+</script>
+
+<button on:click={handleButtonClick}>Click Me</button>
 ```
