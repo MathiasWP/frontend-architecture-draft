@@ -88,7 +88,7 @@ import { getDocumentStore } from '../stores/document-store';
 
 function checkFileExists(projectId, fileName) {
     // Stores are split up by a specified identifier instead of hashing the payload,
-    // so we can retriece the specific store for the documents on this project
+    // so we can retrieve the specific store for the documents on this project
     const documentStore = getDocumentStore(projectId)
     return get(documentStore).some(existingDocument => existingDocument.name === fileName)
 }

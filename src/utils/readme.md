@@ -1,1 +1,1 @@
-Contains shared utils like type-checking, hashing an object, creating CSV data and adapters.
+Contains shared utils like type-checking, hashing an object and creating CSV data.
