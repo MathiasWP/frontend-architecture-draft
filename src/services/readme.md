@@ -1,0 +1,1 @@
+Contains our services. A lot of the code in our current "shared" folder would fit better as separate services.
